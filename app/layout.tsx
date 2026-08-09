@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import './globals.css';
+import './performance.css';
 
 export const metadata: Metadata = {
   title: { default: 'AutoComp Corp', template: '%s | AutoComp Corp' },
