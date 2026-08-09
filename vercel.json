@@ -3,15 +3,7 @@
   "services": {
     "frontend": {
       "root": ".",
-      "framework": "nextjs",
-      "bindings": [
-        {
-          "type": "service",
-          "service": "backend",
-          "format": "url",
-          "env": "AUTOCOMP_BACKEND_URL"
-        }
-      ]
+      "framework": "nextjs"
     },
     "backend": {
       "root": "backend/",
