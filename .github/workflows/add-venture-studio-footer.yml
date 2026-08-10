@@ -1,0 +1,35 @@
+name: Add venture studio footer
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/add-venture-studio-footer.yml']
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add portfolio navigation
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          URL='https://www.josephjilovec.com/ventures'; skip={'.git','node_modules','.next','dist','build','coverage'}; changed=[]
+          for p in Path('.').rglob('*'):
+            if not p.is_file() or p.suffix.lower() not in {'.html','.tsx','.jsx'} or any(x in skip for x in p.parts): continue
+            s=p.read_text(encoding='utf-8',errors='ignore')
+            if URL in s or '<footer' not in s.lower(): continue
+            m=re.search(r'<footer\b[^>]*>',s,re.I)
+            if not m: continue
+            block=('''\n<div class="jj-venture-nav" style="margin:0 auto 1.5rem;padding:1rem 0;text-align:center;font-size:.78rem;letter-spacing:.04em;opacity:.78"><a href="https://www.josephjilovec.com/ventures" style="color:inherit;text-decoration:none">A Joseph Jilovec Venture</a><span aria-hidden="true" style="margin:0 .6rem">·</span><a href="https://www.josephjilovec.com/ventures" style="color:inherit;text-decoration:none;font-weight:600">Explore the Venture Studio →</a></div>\n''' if p.suffix.lower()=='.html' else '''\n<div className="jj-venture-nav" style={{margin:'0 auto 1.5rem',padding:'1rem 0',textAlign:'center',fontSize:'.78rem',letterSpacing:'.04em',opacity:.78}}><a href="https://www.josephjilovec.com/ventures" style={{color:'inherit',textDecoration:'none'}}>A Joseph Jilovec Venture</a><span aria-hidden="true" style={{margin:'0 .6rem'}}>·</span><a href="https://www.josephjilovec.com/ventures" style={{color:'inherit',textDecoration:'none',fontWeight:600}}>Explore the Venture Studio →</a></div>\n''')
+            p.write_text(s[:m.end()]+block+s[m.end():],encoding='utf-8'); changed.append(str(p))
+          print('Updated:', *changed, sep='\n- ')
+      - name: Commit footer update and remove workflow
+        run: |
+          rm .github/workflows/add-venture-studio-footer.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add Joseph Jilovec venture studio footer navigation"
+          git push
