@@ -4,6 +4,7 @@ import './globals.css';
 import './performance.css';
 import './enhancements.css';
 import './enterprise.css';
+import './assessment-theme.css';
 
 export const metadata: Metadata = {
   title: { default: 'AutoComp Corp | Autonomous Compliance Operations', template: '%s | AutoComp Corp' },
