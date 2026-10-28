@@ -37,7 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       }
     `}</style>
     <header><Link href="/" className="brand"><b>AutoComp</b><span>Corp</span></Link><nav><Link href="/#dashboard">Dashboard</Link><Link href="/#workflow">Human Control</Link><Link href="/#roi">ROI</Link><Link href="/#system">System</Link><Link className="nav-cta" href="/assessment">Run readiness check</Link></nav></header>{children}<footer>
-<div><b>AutoComp Corp</b><span>Autonomous compliance operations. Human-controlled execution.</span></div><p>Software for compliance operations, evidence capture, and audit preparation. Legal determinations, signatures, regulated filings, and consequential execution remain with authorized professionals and company officers.</p><div className="jj-venture-nav" style={{borderTop:'1px solid rgba(148,163,184,.16)',padding:'1rem 1.25rem 1.15rem',textAlign:'center',fontSize:'.78rem',letterSpacing:'.045em'}}><a href="https://www.josephjilovec.com/ventures" style={{color:'#93C5FD',textDecoration:'none',fontWeight:700}}>A Joseph Jilovec Venture</a><span aria-hidden="true" style={{color:'#64748B',margin:'0 .65rem',opacity:.8}}>•</span><a href="https://www.josephjilovec.com/ventures" style={{color:'#93C5FD',textDecoration:'none',fontWeight:800}}>Explore the Venture Studio →</a></div>
+<div><b>AutoComp Corp</b><span>Autonomous compliance operations. Human-controlled execution.</span></div><p>Software for compliance operations, evidence capture, and audit preparation. Legal determinations, signatures, regulated filings, and consequential execution remain with authorized professionals and company officers.</p>
 </footer>
   </body></html>;
 }
