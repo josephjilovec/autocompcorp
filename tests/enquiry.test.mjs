@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { buildBrief, parseEnquiry } from '../lib/enquiry.ts';
+import { buildBrief, parseEnquiry, segments, trackingMethods, reviewerRoles } from '../lib/enquiry.ts';
+import { offers, getOffer } from '../lib/offers.ts';
 
 const valid = { name: 'Synthetic Reviewer', email: 'reviewer@example.test', organization: 'Fictional Example Co', entityCount: '1–5', offer: 'readiness', process: 'Review officer records across a small synthetic entity group.', authority: 'yes' };
 
@@ -47,4 +48,28 @@ test('older valid assessment payloads keep their original need', () => {
   const result = parseEnquiry({ ...legacy, need: 'State filing calendar' });
   assert.equal(result.ok, true);
   assert.equal(result.record.need, 'State filing calendar');
+});
+
+test('qualified portfolio briefs preserve buyer context and the smaller pilot cap', () => {
+  const result = parseEnquiry({ ...valid, offer: 'operations', entityCount: '26–100', segment: segments[0], tracking: trackingMethods[0], reviewerRole: reviewerRoles[0] });
+  assert.equal(result.ok, true);
+  const brief = buildBrief(result.record);
+  assert.match(brief, /26–100/);
+  assert.match(brief, /up to 10 entities, 3 officer-change cases, 30 days/);
+  assert.match(brief, /Organization size does not expand the pilot cap/);
+  assert.match(brief, /Spreadsheets and shared folders/);
+  assert.match(brief, /missing evidence stays open/);
+});
+
+test('unrecognized qualification values and multiline contact fields are refused', () => {
+  for (const field of ['segment', 'tracking', 'reviewerRole']) {
+    assert.equal(parseEnquiry({ ...valid, [field]: 'unlimited or forged' }).ok, false);
+  }
+  assert.equal(parseEnquiry({ ...valid, name: 'Synthetic\nContact' }).ok, false);
+});
+
+test('Incident Commander remains outside core portfolio offers while its enquiry link works', () => {
+  assert.equal(offers.some(offer => offer.id === 'incident'), false);
+  assert.equal(getOffer('incident').id, 'incident');
+  assert.equal(parseEnquiry({ ...valid, offer: 'incident' }).ok, true);
 });
