@@ -1,43 +1,22 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import SiteNav, { Brand } from './components/SiteNav';
 import './globals.css';
-import './performance.css';
-import './enhancements.css';
-import './enterprise.css';
-import './assessment-theme.css';
 
 export const metadata: Metadata = {
-  title: { default: 'AutoComp Corp | Autonomous Compliance Operations', template: '%s | AutoComp Corp' },
-  description: 'Autonomous compliance operations and evidence capture with continuous audit readiness, traceable control mapping, and human-gated execution workflows.'
+  metadataBase: new URL('https://autocompcorp.josephjilovec.com'),
+  title: { default: 'AutoComp Corp | Compliance Operations & Incident Readiness', template: '%s | AutoComp Corp' },
+  description: 'Scoped compliance evidence and corporate-record pilots, with clear ownership and human review. Explore readiness reviews and DevOps Incident Commander.',
+  alternates: { canonical: '/' },
+  openGraph: { title: 'AutoComp Corp — Keep the work moving. Keep the proof.', description: 'Compliance operations, reviewable evidence and guided incident-readiness pilots.', type: 'website', images: [{ url: '/media/evidence-review-1536.webp', width: 1536, height: 1024, alt: 'Illustrative document review setting' }] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>
-    <style>{`
-      @media (min-width: 951px) {
-        header {
-          display: grid;
-          grid-template-columns: auto minmax(0, 1fr);
-          justify-content: initial;
-          column-gap: clamp(30px, 4vw, 64px);
-        }
-        header .brand {
-          grid-column: 1;
-          grid-row: 1;
-        }
-        header nav {
-          grid-column: 2;
-          grid-row: 1;
-          justify-self: stretch;
-          justify-content: flex-start;
-        }
-        header nav .nav-cta {
-          margin-left: auto;
-        }
-      }
-    `}</style>
-    <header><Link href="/" className="brand"><b>AutoComp</b><span>Corp</span></Link><nav><Link href="/#dashboard">Dashboard</Link><Link href="/#workflow">Human Control</Link><Link href="/#roi">ROI</Link><Link href="/#system">System</Link><Link className="nav-cta" href="/assessment">Run readiness check</Link></nav></header>{children}<footer>
-<div><b>AutoComp Corp</b><span>Autonomous compliance operations. Human-controlled execution.</span></div><p>Software for compliance operations, evidence capture, and audit preparation. Legal determinations, signatures, regulated filings, and consequential execution remain with authorized professionals and company officers.</p>
-</footer>
+  return <html lang="en"><head><link rel="preload" href="/media/manrope-variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /></head><body>
+    <a className="skip-link" href="#main-content">Skip to content</a>
+    <SiteNav />{children}
+    <footer className="site-footer"><div className="footer-top"><div><Brand footer /><p>Compliance operations.<br />Evidence worth keeping.</p></div><div className="footer-links"><Link href="/#solutions">Solutions</Link><Link href="/products/incident-commander">Incident Commander</Link><Link href="/pricing">Pilot pricing</Link><Link href="/assessment">Plan a pilot</Link><Link href="/privacy">Website privacy</Link></div></div>
+      <div className="footer-bottom"><span>© {new Date().getFullYear()} AutoComp Corp</span><p>Pilot scope and availability are confirmed before work begins. Demonstrations use fictional data. Photography is AI-generated illustrative imagery, not actual staff, clients or facilities. Formal filings, legal advice, certification and production incident response are outside the pilot offers shown here.</p></div>
+    </footer>
   </body></html>;
 }

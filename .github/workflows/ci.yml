@@ -16,7 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: npm install --no-audit --no-fund
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
       - run: npm run build
       - run: npm run typecheck
       - run: node -e "JSON.parse(require('fs').readFileSync('vercel.json','utf8'))"
