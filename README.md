@@ -2,7 +2,7 @@
 
 Public website for Entity Governance & Operations pilots.
 
-Canonical URL: https://autocompcorp.josephjilovec.com/
+Canonical URL: https://autocompcorp.summithillholdings.com/
 
 ## Public routes
 

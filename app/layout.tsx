@@ -4,7 +4,7 @@ import SiteNav, { Brand } from './components/SiteNav';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://autocompcorp.josephjilovec.com'),
+  metadataBase: new URL('https://autocompcorp.summithillholdings.com'),
   title: { default: 'AutoComp Corp | Entity Governance & Operations', template: '%s | AutoComp Corp' },
   description: 'Corporate records, officer-change workflows, recurring obligations and approval evidence for multi-entity portfolios. Start with a scoped AutoComp assessment or pilot.',
   alternates: { canonical: '/' },
@@ -14,5 +14,5 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return <html lang="en"><head><link rel="preload" href="/media/manrope-variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /></head><body><a className="skip-link" href="#main-content">Skip to content</a><SiteNav />{children}
     <footer className="site-footer"><div className="footer-top"><div><Brand footer /><p>Entity governance.<br />Accountable records.</p></div><div className="footer-links"><Link href="/#solutions">Entity workflows</Link><Link href="/#evidence">Officer-change example</Link><Link href="/pricing">Pilot pricing</Link><Link href="/assessment?offer=operations">Plan a portfolio pilot</Link><Link href="/privacy">Website privacy</Link></div></div><div className="research-link"><span>Separate research project</span><Link href="/products/incident-commander">Incident Commander <span aria-hidden="true">↗</span></Link></div>
       <div className="footer-bottom"><span>© {new Date().getFullYear()} AutoComp Corp</span><p>Pilot scope and availability are confirmed before work begins. Demonstrations use fictional records. Photography is AI-generated illustrative imagery, not actual staff, clients or facilities. Formal filings, signatures, payments, legal advice and certification are outside the entity pilot.</p></div>
-    </footer></body></html>;
+    <p style={{ gridColumn: "1 / -1", margin: 0, padding: "16px 24px", fontSize: "12px", lineHeight: 1.6 }}><a href="https://summithillholdings.com/" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: "3px" }}>Summit Hill Holdings</a></p></footer></body></html>;
 }
